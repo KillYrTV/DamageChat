@@ -25,7 +25,7 @@ public class Main extends JavaPlugin implements Listener{
     public void onDisable() {
         // TODO Insert logic to be performed when the plugin is disabled
     }
-       
+
     public static String scramble(String word) {
 	String newword = "";
 	int rndnum;
@@ -39,13 +39,23 @@ public class Main extends JavaPlugin implements Listener{
 		}
 	} while (newword.length() < word.length());
 	return newword;
-        
-        
-}
+        }
+    
+
+    //public static String PigLatin(String sentence) {
+        //String msg = "";
+        //msg = msg.replaceAll("(\\s*)(\\w)(\\w+)", "$1$3$2");
+       // StringBuilder sb = new StringBuilder(msg);
+        //sb.append("ay");
+        //return msg;
+        //}
+    
+
     @EventHandler (priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
        Player player = event.getPlayer();
        String msg = event.getMessage();
+       
        
 	for (PotionEffect pe : player.getActivePotionEffects()) {
             
@@ -54,21 +64,20 @@ public class Main extends JavaPlugin implements Listener{
         event.setMessage(msg);
         }
         
-        if (pe.getType() == PotionEffectType.WITHER) {
-        msg = scramble(msg);
-        event.setMessage(msg);
-        }
-        
-       
+        //if (pe.getType() == PotionEffectType.WITHER) {
+        //msg = scramble(msg);
+        //event.setMessage(msg);
+        //}
+        }     
         
         int ft = player.getFireTicks();
         if (ft > 0) { 
         msg = scramble(msg);       
-        event.setMessage(msg);}
-        
+        event.setMessage(msg);
+        }
+
         event.setMessage(msg); 
-        }    
-        
+  
     }   
          
     }
