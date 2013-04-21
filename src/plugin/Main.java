@@ -7,6 +7,7 @@ package plugin;
 import java.util.Random;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +25,7 @@ public class Main extends JavaPlugin implements Listener{
     public void onDisable() {
         // TODO Insert logic to be performed when the plugin is disabled
     }
-    @EventHandler    
+       
     public static String scramble(String word) {
 	String newword = "";
 	int rndnum;
@@ -41,7 +42,7 @@ public class Main extends JavaPlugin implements Listener{
         
         
 }
-    @EventHandler
+    @EventHandler (priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
        Player player = event.getPlayer();
        String msg = event.getMessage();
