@@ -4,15 +4,16 @@
  */
 package plugin;
 
+
 import java.util.Random;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class Main extends JavaPlugin implements Listener{    
 
@@ -42,44 +43,54 @@ public class Main extends JavaPlugin implements Listener{
         }
     
 
-    //public static String PigLatin(String sentence) {
-        //String msg = "";
-        //msg = msg.replaceAll("(\\s*)(\\w)(\\w+)", "$1$3$2");
-       // StringBuilder sb = new StringBuilder(msg);
-        //sb.append("ay");
-        //return msg;
-        //}
-    
+        
 
     @EventHandler (priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
        Player player = event.getPlayer();
        String msg = event.getMessage();
+       Entity vehicle = player.getVehicle();
+       //PotionEffectType pe = (PotionEffectType) player.getActivePotionEffects();
        
-       
-	for (PotionEffect pe : player.getActivePotionEffects()) {
-            
-        if (pe.getType() == PotionEffectType.POISON) {
-        msg = scramble(msg);
-        event.setMessage(msg);
+       if (vehicle != null && vehicle.getType() == EntityType.PIG) { 
+        for (String part : msg.split("//s")) {
+        event.setMessage(new StringBuffer(part).reverse().toString());
         }
+       }
+       int ft = player.getFireTicks();
+       if (ft > 0) { 
+            msg = scramble(msg);       
+            event.setMessage(msg);
+       }
+      
+
+    }
+       
+}   
+
+
+       
+        //PotionEffectType pe = (PotionEffectType) player.getActivePotionEffects();
+        
+        //if (pe != null && pe == (PotionEffectType.POISON)) {
+            // msg = scramble(msg);
+           // event.setMessage(msg);
+        
+        
+        
+        
+        
+       //for (PotionEffect pe : player.getActivePotionEffects()) {
+            
+        //if (pe.getType() == PotionEffectType.POISON) {
+        //msg = scramble(msg);
+        //event.setMessage(msg);
+        //}
         
         //if (pe.getType() == PotionEffectType.WITHER) {
         //msg = scramble(msg);
         //event.setMessage(msg);
         //}
-        }     
+        //}     
         
-        int ft = player.getFireTicks();
-        if (ft > 0) { 
-        msg = scramble(msg);       
-        event.setMessage(msg);
-        }
-
-        event.setMessage(msg); 
   
-    }   
-         
-    }
-   
- 
